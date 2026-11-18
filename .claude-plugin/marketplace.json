@@ -1,19 +1,19 @@
 {
-  "name": "jellycube-skills",
+  "name": "jc-skills",
   "owner": {
     "name": "Taf Technology"
   },
   "metadata": {
     "description": "Agent Skills for building Jellycube-compatible Astro templates and sites.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
-      "name": "jellycube-template",
+      "name": "template",
       "description": "Build or check an Astro project so it imports, edits, serves and publishes correctly in Jellycube, as a stand-alone site or a host-app template.",
       "source": "./",
       "strict": false,
-      "skills": ["./skills/jellycube-template"]
+      "skills": ["./template"]
     }
   ]
 }

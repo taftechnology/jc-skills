@@ -1,4 +1,4 @@
-# jellycube-template (Agent Skill)
+# template (Jellycube Agent Skill)
 
 An [Agent Skill](https://agentskills.io) that teaches a coding agent what an Astro project
 needs to import, edit, serve and publish correctly in Jellycube, either as a stand-alone
@@ -6,7 +6,7 @@ Jellycube site or as a template for a host app. It adds only Jellycube's require
 overrides the user's own design or project rules.
 
 ```
-jellycube-template/
+template/
   SKILL.md                      short instructions, loaded when relevant
   references/                   the full rules, each with its source in the Jellycube repo
     project-setup.md            pre-flight requirements, install/build, limits, folder layout
@@ -23,44 +23,44 @@ jellycube-template/
 With the [`skills`](https://skills.sh) CLI (any agent):
 
 ```bash
-npx skills add taftechnology/Jellycube-skills
+npx skills add taftechnology/jc-skills/template
 ```
 
-In Claude Code: `/plugin marketplace add taftechnology/Jellycube-skills`, then
-`/plugin install jellycube-template@jellycube-skills`.
+In Claude Code: `/plugin marketplace add taftechnology/jc-skills`, then
+`/plugin install template@jc-skills`.
 
 ### By hand
 
-Copy (or symlink) the whole `jellycube-template` folder. The folder name must stay
-`jellycube-template` (it matches `name` in `SKILL.md`).
+Copy (or symlink) the whole `template` folder. The folder name must stay
+`template` (it matches `name` in `SKILL.md`).
 
 | Harness | Project-level folder | Personal (all projects) |
 | --- | --- | --- |
-| Claude Code | `.claude/skills/jellycube-template/` | `~/.claude/skills/jellycube-template/` |
-| OpenCode | `.opencode/skills/jellycube-template/` (also reads `.claude/skills/` and `.agents/skills/`) | `~/.config/opencode/skills/jellycube-template/` |
-| Codex | `.agents/skills/jellycube-template/` | `~/.agents/skills/jellycube-template/` (older versions: `~/.codex/skills/`) |
-| Cursor | `.cursor/skills/jellycube-template/` (also reads `.agents/skills/`, `.claude/skills/`, `.codex/skills/`) | `~/.cursor/skills/jellycube-template/` |
+| Claude Code | `.claude/skills/template/` | `~/.claude/skills/template/` |
+| OpenCode | `.opencode/skills/template/` (also reads `.claude/skills/` and `.agents/skills/`) | `~/.config/opencode/skills/template/` |
+| Codex | `.agents/skills/template/` | `~/.agents/skills/template/` (older versions: `~/.codex/skills/`) |
+| Cursor | `.cursor/skills/template/` (also reads `.agents/skills/`, `.claude/skills/`, `.codex/skills/`) | `~/.cursor/skills/template/` |
 | Any other Agent Skills reader | its skills folder | — |
 
 `.agents/skills/` is read by OpenCode, Codex and Cursor, so one copy there covers all three
 in a project. For example, from the project you're building:
 
 ```bash
-mkdir -p .agents/skills && cp -r "<path-to-jellycube-core>/skills/jellycube-template" .agents/skills/
+mkdir -p .agents/skills && cp -r "<path-to-jc-skills>/template" .agents/skills/
 ```
 
 ```bash
-mkdir -p .claude/skills && cp -r "<path-to-jellycube-core>/skills/jellycube-template" .claude/skills/
+mkdir -p .claude/skills && cp -r "<path-to-jc-skills>/template" .claude/skills/
 ```
 
 Restart the agent (or start a new session) so it picks the skill up. It then loads on requests
 like "make this Astro site Jellycube-compatible" or "check this template before upload", or by
-name (`/jellycube-template` where the harness supports it).
+name (`/template` where the harness supports it).
 
 ## Use the checker on its own
 
 ```bash
-node skills/jellycube-template/scripts/check-template.mjs <project-folder>
+node template/scripts/check-template.mjs <project-folder>
 ```
 
 Add `--host` for a host-app template and `--json` for machine-readable output. Exit code 1 means
@@ -68,6 +68,6 @@ the Jellycube import would refuse the project.
 
 ## Keeping it current
 
-Every rule names the file in this repository it comes from. When those files change (the import
+Every rule names the file in the Jellycube repository it comes from. When those files change (the import
 pre-flight, `engines/content/`, `engines/sdk/islands.ts`, `engines/sdk/sitePolicy.ts`), update the
 matching reference and the checker.
