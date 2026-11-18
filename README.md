@@ -45,3 +45,7 @@ Node 18 or later, no install. Exit code 1 means Jellycube's import would refuse 
 
 Create a top-level folder whose name matches the `name` in its `SKILL.md`, add a row to the
 table above, and add it to `.claude-plugin/marketplace.json`.
+
+## License
+
+[MIT](LICENSE)
