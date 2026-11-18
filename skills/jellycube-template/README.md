@@ -23,10 +23,10 @@ jellycube-template/
 With the [`skills`](https://skills.sh) CLI (any agent):
 
 ```bash
-npx skills add taftechnology/jellycube-skills
+npx skills add taftechnology/Jellycube-skills
 ```
 
-In Claude Code: `/plugin marketplace add taftechnology/jellycube-skills`, then
+In Claude Code: `/plugin marketplace add taftechnology/Jellycube-skills`, then
 `/plugin install jellycube-template@jellycube-skills`.
 
 ### By hand

@@ -13,13 +13,13 @@ OpenCode, Codex, Cursor and others).
 Any agent, with the [`skills`](https://skills.sh) CLI:
 
 ```bash
-npx skills add taftechnology/jellycube-skills
+npx skills add taftechnology/Jellycube-skills
 ```
 
 Claude Code, from its plugin installer:
 
 ```
-/plugin marketplace add taftechnology/jellycube-skills
+/plugin marketplace add taftechnology/Jellycube-skills
 /plugin install jellycube-template@jellycube-skills
 ```
 
