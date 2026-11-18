@@ -8,7 +8,7 @@ overrides the user's own design or project rules.
 ```
 template/
   SKILL.md                      short instructions, loaded when relevant
-  references/                   the full rules, each with its source in the Jellycube repo
+  references/                   the full rules
     project-setup.md            pre-flight requirements, install/build, limits, folder layout
     editability.md              editable vs code-driven (locked) regions, dynamic routes
     cms-bindings.md             content collections, every data-cms-* attribute, cms.json
@@ -68,6 +68,5 @@ the Jellycube import would refuse the project.
 
 ## Keeping it current
 
-Every rule names the file in the Jellycube repository it comes from. When those files change (the import
-pre-flight, `engines/content/`, `engines/sdk/islands.ts`, `engines/sdk/sitePolicy.ts`), update the
-matching reference and the checker.
+The rules describe Jellycube as of November 2026. When Jellycube's import, CMS bindings, host
+islands or site policy change, update the matching reference and the checker.

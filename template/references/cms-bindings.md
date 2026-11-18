@@ -2,20 +2,17 @@
 
 Jellycube has two places content can live. A project can use either, both, or neither.
 
-1. **Project content collections** (F6): Astro content collections in the project's own files.
+1. **Project content collections**: Astro content collections in the project's own files.
    The CMS view edits the files; changes reach the site at the next publish.
-2. **Database collections** (F31): collections kept by Jellycube (native, or external from a URL),
+2. **Database collections**: collections kept by Jellycube (native, or external from a URL),
    plus **host collections** from a host app (SDK). Pages that carry `data-cms-*` attributes are
    filled from them **at request time**, with no rebuild.
 
 Note: the first time a site's CMS opens, every collection the project declares is copied into
 the database and managed there from then on (the project's files are untouched). So a project
-collection that pages also bind with `data-cms-*` keeps working after that switch. Source:
-`docs/features-overview/f31-database-cms.md` §9.
+collection that pages also bind with `data-cms-*` keeps working after that switch.
 
-## 1. Project content collections (F6)
-
-Source: `docs/features-overview/f6-structured-cms.md`, `engines/cms/`.
+## 1. Project content collections
 
 - Config: `src/content.config.ts` (or legacy `src/content/config.ts`). It is read as text, never
   run.
@@ -35,11 +32,6 @@ Source: `docs/features-overview/f6-structured-cms.md`, `engines/cms/`.
 - Detail pages are collection templates (`[slug].astro`): see `editability.md`.
 
 ## 2. The binding contract (database, external and host collections)
-
-Source: `engines/content/binding.ts` (the contract, `CMS_ATTRIBUTES`), `template.ts`
-(placeholders, attribute rules, dates), `query.ts` (sort, filter, limits), `scope.ts` (roles),
-`each.ts`, `fieldsBlock.ts`, `boundText.ts`, `pages.ts` (manifest); summary table in
-`docs/features-overview/f31-database-cms.md`.
 
 The page is built once by Astro with sample content. At request time the marked elements are
 filled from the collection. **Built values stay as the fallback**: a list naming a collection
@@ -137,15 +129,14 @@ page served without the database shows no sample row. The classes on the generat
 
 `<title>` and `<meta>` take bindings like any element (`data-cms-text` on `<title>`,
 `data-cms-attr="content=…"` or `data-cms-field` on `<meta>`), so entry and collection pages can
-fill their own title and description. Source: `docs/templates-plan.md` rule 27 ("including the
-detail page and its head"); `binding.ts` (`meta` → `content`).
+fill their own title and description.
 
 ## 3. Collection pages and `cms.json`
 
 Every database collection automatically gets `/<collection>` (list) and `/<collection>/<slug>`
 (entry) pages, rendered into pages the template built. The template says which pages in an
 optional manifest at `public/_jellycube/cms.json` (served as `/_jellycube/cms.json`, read up to
-64 KB). Source: `engines/content/pages.ts`, `worker/import-container/src/collectionPages.ts`.
+64 KB).
 
 ```json
 {
@@ -171,7 +162,7 @@ optional manifest at `public/_jellycube/cms.json` (served as `/_jellycube/cms.js
 
 Collection names: `^[a-z][a-z0-9-]{0,47}$`. Slugs: lowercase letters, numbers and hyphens, up to
 80 characters. Reserved field names: `slug`, `body`, `id`, `status`, `version`, `createdAt`,
-`updatedAt`, `publishedAt`. Source: `engines/content/collections.ts`.
+`updatedAt`, `publishedAt`.
 
 ## 4. Host collections (templates for a host app)
 
@@ -179,11 +170,10 @@ A host's collection key becomes the collection name lowercased with `.` and `_` 
 (`engagement.events` → `engagement-events`), and must then match the collection name rule.
 Bind it with `data-cms-list="<that name>"` and name it in `cms.json`. Bindings work before the
 host serves the collection: the built sample content shows until then.
-Source: `engines/sdk/collectionName.ts`, `DECISIONS.md` D-9.
 
 ## 5. External source format (for reference)
 
 An external collection reads one JSON file (`"jellycube": "content-source/v1"`, a `collection`
 with `fields`, and `items`). Field types: `text`, `longText`, `number`, `boolean`, `date`, `url`,
 `email`, `image`, `choice` (with `options`), `tags`. Limits: public `https` only, 8 s timeout,
-4 MB per page, 20 pages, 5,000 entries. Full format: F31 "The Content Source Contract".
+4 MB per page, 20 pages, 5,000 entries. Full format: Jellycube's Database CMS documentation ("The Content Source Contract").

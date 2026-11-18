@@ -36,7 +36,7 @@ Jellycube needs from the project. It adds those requirements; it decides nothing
 - **≤ 64 MB and ≤ 20,000 files** (leave out `node_modules`, `dist`, `.astro`).
 - Builds with lifecycle scripts off and plain `astro build` (your `build` script is not run).
 
-Details and sources: `references/project-setup.md`.
+Details: `references/project-setup.md`.
 
 ## Editability (summary)
 

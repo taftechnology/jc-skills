@@ -3,9 +3,7 @@
 A host island is an interactive feature a host app provides (RSVP, donate, a form, a live
 total) as a versioned custom element. Templates **place** islands; the v1 editor can't add them.
 Islands are injected only on **host sites** (sites served for a host app), not on stand-alone
-Jellycube sites. Source: `docs/integrations/build/phase-4/4.4-islands-and-policies.md`,
-`worker/src/sdk/islands/injectIslands.ts` (used only by `worker/src/sdk/domains/serveHostAddress.ts`),
-`engines/sdk/islands.ts`.
+Jellycube sites.
 
 ## In the template
 
@@ -25,7 +23,6 @@ Jellycube sites. Source: `docs/integrations/build/phase-4/4.4-islands-and-polici
 - Don't add the island's `<script>` yourself. For each island used on a page, Jellycube appends
   one `<script type="module" src="…" integrity="…" crossorigin="anonymous">` before `</body>`.
 - The import keeps `data-jc-island` and `data-jc-props` (all other `data-jc-*` are stripped).
-  Source: `engines/import/conversion/attributes.ts`.
 
 ### Per-entry props on a collection page
 
@@ -40,8 +37,7 @@ are filled:
 
 The JSON must not contain `;` (it separates `data-cms-attr` bindings). If a placeholder has no
 value the attribute is removed (empty state). Wrap the section in `data-cms-if="<field>"` to show
-it only for entries that turn the feature on. Source: `engines/content/template.ts`,
-`binding.ts`.
+it only for entries that turn the feature on.
 
 ## On the host side (what the host app must serve)
 
@@ -67,5 +63,3 @@ The host lists islands at `GET /islands` (signed). Each item:
 - `needsConsent: true` puts the island behind the site's cookie notice.
 - Anything failing a check is dropped and logged. The list is cached per host for 10 minutes.
 
-Source: `engines/sdk/islands.ts` (`parseIslandList`, `validIntegrity`, `validateIslandProps`),
-`packages/host/README.md` (islands section), step file 4.4.

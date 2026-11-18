@@ -9,9 +9,6 @@
 | `data-jc-island`, `data-jc-props` | Tailwind v4 stylesheets get a marked `@source not` block during the converted build only (removed afterwards) |
 | Scripts, styles, comments, expressions (as locked fragments, reproduced exactly) | — |
 
-Sources: `engines/import/conversion/attributes.ts`, `conversion/astroToIr.ts`,
-`pipeline/convertStage.ts`, `pipeline/tailwindSources.ts`, `engines/content/binding.ts`.
-
 ## Verify locally
 
 1. Run the bundled checker (Node 18+, no dependencies):
@@ -81,5 +78,4 @@ Jellycube compatibility (cost editability or a feature if missed):
 
 Not required by Jellycube (don't impose these): a particular CSS framework, folder names for
 components or layouts, a single layout, `og.png`, `--color-primary`, a fixed dependency list,
-Google Fonts. These are house rules of Jellycube's own starter templates
-(`docs/templates-plan.md`), not import requirements.
+Google Fonts. These are house rules of Jellycube's own starter templates, not import requirements.

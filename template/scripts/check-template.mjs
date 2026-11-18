@@ -5,8 +5,8 @@
  *   node check-template.mjs <project-folder> [--host] [--json]
  *
  * Mirrors Jellycube's import pre-flight (errors), and flags what costs
- * editability or a binding (warnings). Every check names the Jellycube source
- * file it follows; see the skill's references/ for the full rules.
+ * editability or a binding (warnings). See the skill's references/ for the
+ * full rules.
  *
  * Exit code: 0 with no errors, 1 with errors, 2 on bad usage.
  */
@@ -52,9 +52,9 @@ files.sort();
 const has = (path) => files.includes(path);
 const read = (path) => readFileSync(join(root, path), 'utf8');
 
-// ---------------------------------------------------------------- pre-flight (engines/import/analysis/preflight.ts)
+// ---------------------------------------------------------------- pre-flight
 
-const MAX_BYTES = 64 * 1024 * 1024; // engines/import/types/job.ts
+const MAX_BYTES = 64 * 1024 * 1024;
 const MAX_FILES = 20000;
 
 let pkg = null;
@@ -87,7 +87,7 @@ if (astroRange !== null) {
   }
 }
 
-const LOCKFILES = ['package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lockb']; // analysis/buildManifest.ts
+const LOCKFILES = ['package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'bun.lockb'];
 const lockfile = LOCKFILES.find(has);
 
 if (lockfile === undefined) {
@@ -102,7 +102,7 @@ else if (files.some((path) => /^apps\/[^/]+\/package\.json$/.test(path))) add('e
 if (totalBytes > MAX_BYTES) add('error', 'source-too-large', `The project is ${(totalBytes / 1048576).toFixed(1)} MB (without node_modules, dist, .astro, .git); the limit is 64 MB.`);
 if (files.length > MAX_FILES) add('error', 'source-too-large', `The project has ${files.length} files; the limit is ${MAX_FILES}.`);
 
-// Astro config: read as text, never run (analysis/projectManifest.ts).
+// Astro config: read as text, never run.
 const CONFIG_NAMES = ['astro.config.mjs', 'astro.config.js', 'astro.config.ts', 'astro.config.mts', 'astro.config.cjs'];
 const configPath = CONFIG_NAMES.find(has);
 
@@ -142,7 +142,7 @@ if (pkg !== null && typeof pkg.packageManager !== 'string') add('info', 'no-pack
 const lifecycle = Object.keys(pkg?.scripts ?? {}).filter((name) => /^(pre|post)?install$|^prepare$|^(pre|post)build$/.test(name));
 if (lifecycle.length > 0) add('info', 'scripts-not-run', `The import never runs these scripts: ${lifecycle.join(', ')}. It installs with --ignore-scripts and runs astro build directly.`, 'package.json');
 
-// ---------------------------------------------------------------- reserved paths (pipeline/tailwindSources.ts, convertStage.ts, collectionRoutes.ts)
+// ---------------------------------------------------------------- reserved paths
 
 for (const prefix of ['jellycube/', '.jellycube/', 'src/components/jellycube/', 'src/lib/jellycube/']) {
   const hit = files.find((path) => path.startsWith(prefix));
@@ -153,7 +153,7 @@ for (const path of files.filter((p) => p.startsWith('public/_jellycube/') && p !
   add('warn', 'reserved-path', 'Only cms.json in public/_jellycube/ is authored; Jellycube writes the other files there.', path);
 }
 
-// ---------------------------------------------------------------- dynamic routes (utils/paths.ts)
+// ---------------------------------------------------------------- dynamic routes
 
 for (const page of pages) {
   const segments = page.slice('src/pages/'.length, -'.astro'.length).split('/');
@@ -164,7 +164,7 @@ for (const page of pages) {
   }
 }
 
-// ---------------------------------------------------------------- Tailwind (analysis/tailwind.ts, pipeline/tailwindSources.ts)
+// ---------------------------------------------------------------- Tailwind
 
 const tailwindRange = deps.tailwindcss ?? null;
 
@@ -205,19 +205,19 @@ function tagsOf(source) {
   return { tags, body };
 }
 
-// engines/content/binding.ts CMS_ATTRIBUTES (+ fieldsBlock.ts FIELDS_ATTRIBUTES)
+// Every data-cms-* attribute Jellycube reads (bindings and the fields block)
 const CMS_ATTRIBUTES = new Set([
   'data-cms-list', 'data-cms-sort', 'data-cms-filter', 'data-cms-limit', 'data-cms-offset', 'data-cms-exclude', 'data-cms-hide-empty',
   'data-cms-item', 'data-cms-empty', 'data-cms-field', 'data-cms-format', 'data-cms-text', 'data-cms-attr',
   'data-cms-if', 'data-cms-date', 'data-cms-locale', 'data-cms-each', 'data-cms-each-item', 'data-cms-start',
   'data-cms-fields', 'data-cms-fields-exclude', 'data-cms-field-item', 'data-cms-field-label', 'data-cms-field-value', 'data-cms-image-class', 'data-cms-link-class',
 ]);
-const COLLECTION_NAME = /^[a-z][a-z0-9-]{0,47}$/; // content/collections.ts
-const FIELD = /^[A-Za-z][A-Za-z0-9_]{0,47}$/; // content/query.ts
+const COLLECTION_NAME = /^[a-z][a-z0-9-]{0,47}$/;
+const FIELD = /^[A-Za-z][A-Za-z0-9_]{0,47}$/;
 const NAME = /^@?[A-Za-z][A-Za-z0-9_]{0,47}$/;
-const PLACEHOLDER = /\{\s*(@?[A-Za-z][A-Za-z0-9_]{0,47})(?:\s*\?\?\s*(@?[A-Za-z][A-Za-z0-9_]{0,47}))?\s*(?:\|\s*(url|date)\s*)?\}/g; // content/template.ts
+const PLACEHOLDER = /\{\s*(@?[A-Za-z][A-Za-z0-9_]{0,47})(?:\s*\?\?\s*(@?[A-Za-z][A-Za-z0-9_]{0,47}))?\s*(?:\|\s*(url|date)\s*)?\}/g;
 const BLOCKED_ATTRIBUTES = new Set(['style', 'srcdoc', 'srcset', 'imagesrcset', 'is', 'xmlns']);
-const ISLAND_TAG = /^[a-z][a-z0-9-]{1,40}$/; // sdk/islands.ts
+const ISLAND_TAG = /^[a-z][a-z0-9-]{1,40}$/;
 const DATE_PRESETS = new Set(['full', 'long', 'medium', 'short', 'iso']);
 
 function checkPlaceholders(template, file, line, attribute) {
@@ -247,7 +247,7 @@ for (const file of MARKUP_FILES) {
   const { tags, body } = tagsOf(source);
   const isPage = file.startsWith('src/pages/');
 
-  // Editability (advisory): engines/import/conversion/astroToIr.ts, attributes.ts.
+  // Editability (advisory).
   if (file.endsWith('.astro')) {
     const frontmatter = /^---([\s\S]*?)\n---/.exec(source)?.[1] ?? '';
 
@@ -350,7 +350,7 @@ for (const file of MARKUP_FILES) {
       }
     }
 
-    // Host islands: engines/sdk/islands.ts, worker/src/sdk/islands/injectIslands.ts.
+    // Host islands.
     const island = tag.attrs.get('data-jc-island');
 
     if (island !== undefined) {
@@ -375,7 +375,7 @@ for (const file of MARKUP_FILES) {
   }
 }
 
-// ---------------------------------------------------------------- cms.json (engines/content/pages.ts)
+// ---------------------------------------------------------------- cms.json
 
 function pagePathExists(path) {
   const parts = path.split('/').filter(Boolean);
@@ -421,7 +421,7 @@ if (has('public/_jellycube/cms.json')) {
   add('info', 'cms-manifest', 'Bindings are used but there is no public/_jellycube/cms.json; automatic collection pages then have no template pages.');
 }
 
-// ---------------------------------------------------------------- host templates (engines/sdk/templateCheck.ts)
+// ---------------------------------------------------------------- host templates
 
 if (hostMode) {
   const CHECK_EXTENSIONS = /\.(astro|html|css|ts|js|json|md)$/i;
