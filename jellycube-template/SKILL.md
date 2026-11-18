@@ -1,5 +1,5 @@
 ---
-name: template
+name: jellycube-template
 description: Build or check an Astro project so it imports, edits, serves and publishes correctly in Jellycube, as a stand-alone Jellycube site or as a template for a host app. Use when creating, converting, reviewing or preparing to upload a Jellycube template or site, or when working with data-cms-* bindings, public/_jellycube/cms.json, host islands (data-jc-island, data-jc-props) or the Jellycube import report (code-only pages, code-driven regions).
 license: MIT
 ---

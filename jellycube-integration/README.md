@@ -1,4 +1,4 @@
-# integration (Jellycube Agent Skill)
+# jellycube-integration (Jellycube Agent Skill)
 
 An [Agent Skill](https://agentskills.io) that teaches a coding agent how to integrate an app with
 Jellycube (the Jellycube Host SDK), so the app's own users create, edit and publish Jellycube
@@ -7,7 +7,7 @@ while building real integrations, and fits around the app's own code and design 
 replacing them.
 
 ```
-integration/
+jellycube-integration/
   SKILL.md                     workflow, ground rules, the minimum integration
   references/
     setup.md                   packages, registering a host app, env vars, local development
@@ -28,25 +28,25 @@ integration/
 With the [`skills`](https://skills.sh) CLI (any agent):
 
 ```bash
-npx skills add taftechnology/jc-skills/integration
+npx skills add taftechnology/jc-skills/jellycube-integration
 ```
 
 In Claude Code: `/plugin marketplace add taftechnology/jc-skills`, then
-`/plugin install integration@jc-skills`.
+`/plugin install jellycube-integration@jc-skills`.
 
-By hand: copy this `integration` folder into your agent's skills folder (`.claude/skills/`,
+By hand: copy this `jellycube-integration` folder into your agent's skills folder (`.claude/skills/`,
 `.agents/skills/`, `.opencode/skills/` or `.cursor/skills/`). The folder name must stay
-`integration`. It matches `name` in `SKILL.md`.
+`jellycube-integration`. It matches `name` in `SKILL.md`.
 
 Start a new agent session, then ask, for example: "Integrate our app with Jellycube so each
 community can build its website", "Add host collections for our events", or "The embedded
-editor shows a blank frame". Pair it with the [`template`](../template/) skill for the Astro
+editor shows a blank frame". Pair it with the [`jellycube-template`](../jellycube-template/) skill for the Astro
 template.
 
 ## Use the checker on its own
 
 ```bash
-node integration/scripts/check-host.mjs --base https://admin.example.com/jellycube
+node jellycube-integration/scripts/check-host.mjs --base https://admin.example.com/jellycube
 ```
 
 Add `--tenant <community ID> --env-file .env` to check the signed routes (theme, collections,

@@ -51,7 +51,7 @@ Run against the host's dev or staging host app (`setup.md`, "Local development")
 private window with third-party cookies blocked. Write down the result of each step.
 
 1. **Connection:** `jellycube.ping({ tenantRef })` from the server answers `ok: true`.
-2. **Template:** the template passes the `template` skill's checker in `--host` mode. If using
+2. **Template:** the template passes the `jellycube-template` skill's checker in `--host` mode. If using
    upload, `templates.get` reaches `ready`.
 3. **Create:** in the admin, create a website for a test community. The label check offers
    suggestions for a taken label, the progress shows its phases, and the status becomes

@@ -3,8 +3,8 @@
 ## Templates
 
 Jellycube gives hosts **no** templates. The host builds its own Astro template, makes it
-Jellycube-compatible, binds its host collections and places its islands. Use the `template`
-skill (`npx skills add taftechnology/jc-skills/template`) and check the template with its
+Jellycube-compatible, binds its host collections and places its islands. Use the `jellycube-template`
+skill (`npx skills add taftechnology/jc-skills/jellycube-template`) and check the template with its
 checker in `--host` mode.
 
 There are two ways to use a template. Let the user choose:

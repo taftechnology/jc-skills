@@ -62,7 +62,7 @@ signature. Return only items that should be public (published, not drafts, not p
 - The package builds `itemsUrl`, `itemUrlTemplate`, `editUrlTemplate` and `manageUrl` itself
   from the public URL. Never write them by hand.
 - The template binds these names before any data exists: its own sample content shows until
-  the host serves data (`template` skill, "Host collection names").
+  the host serves data (`jellycube-template` skill, "Host collection names").
 
 ### When Jellycube reads it
 
@@ -167,7 +167,7 @@ jellycube.handler({
   versions for a while, because pages and caches may still request them. Cache versioned files
   as immutable.
 
-**In the template** (details in the `template` skill):
+**In the template** (details in the `jellycube-template` skill):
 
 ```html
 <acme-rsvp data-jc-island="acme-rsvp" data-jc-props='{"eventSlug":"harvest-supper"}'></acme-rsvp>

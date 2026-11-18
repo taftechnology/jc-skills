@@ -1,5 +1,5 @@
 ---
-name: integration
+name: jellycube-integration
 description: Build, extend or debug a host app's integration with Jellycube (the Jellycube Host SDK), so the app's own users create, edit and publish Jellycube websites inside it. Covers registering a host app, the server package (@jellycube/server, Python jellycube-host, PHP jellycube/host) and its /jellycube handler, built-in or own-provider sign-in, the embedded editor (@jellycube/client), roles, site creation from templates, build progress, publishing, suspend/resume/rename/delete, webhooks, host collections, freshness notifications, Edit-in-host links, host islands, theme, preview links and passwords, the host's own content domain, the cookie notice, and implementing the signed protocol (JC-SIG-v1) by hand in any other language. Use whenever someone works on a Jellycube integration or hits a Jellycube SDK error.
 license: MIT
 ---
@@ -47,7 +47,7 @@ Do the steps in this order. Each one is testable on its own. Skip any the user d
 | 2 | Register the host app on Jellycube's **Developers** page; put the 4 values plus `JELLYCUBE_PUBLIC_URL` and `JELLYCUBE_SIGNIN_KEY` in env | `setup.md` |
 | 3 | Create `jellycube` once, mount `handler()` at `/jellycube` **before any body parser**, write `getUser` | `server.md` |
 | 4 | Check the handler: `node <skill>/scripts/check-host.mjs --base <publicUrl>/jellycube` | `verify.md` |
-| 5 | Templates: build a Jellycube-compatible Astro template (the `template` skill), then upload it or keep the zip | `sites.md` |
+| 5 | Templates: build a Jellycube-compatible Astro template (the `jellycube-template` skill), then upload it or keep the zip | `sites.md` |
 | 6 | "Create website": `sites.create` → poll `sites.progress` → store `siteId` | `sites.md` |
 | 7 | Show the editor with `mountJellycubeEditor` on an admin page | `editor.md` |
 | 8 | Lifecycle buttons and webhooks: suspend, resume, rename, delete, `onEvent` | `sites.md` |

@@ -105,7 +105,7 @@ once. Offer delete and create again.
 
 - The editor is **content edit mode**: text, formatted text, images and links in place. There
   are no style controls and no adding or reordering sections in v1. What is editable is
-  decided by the template (the `template` skill).
+  decided by the template (the `jellycube-template` skill).
 - **Publish** makes the site live. A new site's address answers `404` until its first Publish
   (`sites.md`).
 - **Images:** uploads belong to that one site. They're stored in three widths and served with

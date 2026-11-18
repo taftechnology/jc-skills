@@ -53,7 +53,7 @@ in one run.
 | --- | --- | --- |
 | The site is `active`, but its address answers `404` | It was never published | Press Publish in the editor (`full` access). Show "not published yet" from `live` |
 | `percent` stays 0 for minutes | `phase` is `queued` or `starting`: the builder is waking up, or other builds are ahead | Show the phase, poll less often (every 10 seconds after the first minute), and don't time out early |
-| The build fails (`status: 'failed'`) | The template doesn't import: no lockfile, server output, middleware, Astro too old, and so on | Run the `template` skill's checker on the template. With `templates.upload`, read `failedRoutes` and `error` before creating sites |
+| The build fails (`status: 'failed'`) | The template doesn't import: no lockfile, server output, middleware, Astro too old, and so on | Run the `jellycube-template` skill's checker on the template. With `templates.upload`, read `failedRoutes` and `error` before creating sites |
 | `409 address_taken` for a label that was just deleted | Deleted sites hold their address for 12 months | Use `checkAddress` and its `suggestions`, or a new label |
 | `409 idempotency_conflict` | The same `idempotencyKey` was reused with a different label, `siteRef` or template (common after a delete and re-create) | Make the key from community **and** label, and a fresh one per new attempt |
 | `404 site_not_found` for a stored `siteId` | The site was deleted elsewhere, or a delete's answer was lost | Clear the stored website and offer "create" again |
@@ -81,7 +81,7 @@ in one run.
 
 | Symptom | Cause | Fix |
 | --- | --- | --- |
-| The island never appears | It's a stand-alone (non-host) site, `islands` isn't passed (`/islands` 404), the element tag doesn't equal `data-jc-island`, or `data-jc-props` fails the `props` schema | Check with `check-host.mjs`, and check the template (`template` skill) |
+| The island never appears | It's a stand-alone (non-host) site, `islands` isn't passed (`/islands` 404), the element tag doesn't equal `data-jc-island`, or `data-jc-props` fails the `props` schema | Check with `check-host.mjs`, and check the template (`jellycube-template` skill) |
 | Console: script "blocked by CORS policy" | The script file has no `Access-Control-Allow-Origin` | Serve `/islands/*` with `Access-Control-Allow-Origin: *` |
 | Console: "Failed to find a valid digest in the 'integrity' attribute" | The served bytes differ from the hashed bytes (minifier, CDN auto-minify, edited file, wrong file) or the hash was typed by hand | Hash the **served** file with `jellycube-server sri <file>` after downloading it, and turn off byte-changing optimisations for `/islands/*` |
 | The island's `fetch` is blocked (CSP `connect-src`) | The API origin is missing from `connect` | List every origin the island calls |

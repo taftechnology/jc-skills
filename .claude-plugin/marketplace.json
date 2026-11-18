@@ -5,22 +5,22 @@
   },
   "metadata": {
     "description": "Agent Skills for building Jellycube-compatible Astro templates and sites, and for integrating apps with Jellycube.",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "plugins": [
     {
-      "name": "template",
+      "name": "jellycube-template",
       "description": "Build or check an Astro project so it imports, edits, serves and publishes correctly in Jellycube, as a stand-alone site or a host-app template.",
       "source": "./",
       "strict": false,
-      "skills": ["./template"]
+      "skills": ["./jellycube-template"]
     },
     {
-      "name": "integration",
+      "name": "jellycube-integration",
       "description": "Integrate an app with Jellycube (the Host SDK): host app setup, server handler and sign-in, embedded editor, sites, webhooks, host collections, freshness, islands, theme, previews and own domain, with troubleshooting and a host checker.",
       "source": "./",
       "strict": false,
-      "skills": ["./integration"]
+      "skills": ["./jellycube-integration"]
     }
   ]
 }
