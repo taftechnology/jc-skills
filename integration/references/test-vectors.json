@@ -1,0 +1,89 @@
+{
+  "description": "JC-SIG-v1 test vectors (see protocol.md). Every implementation must reproduce each valid vector's stringToSign and signature byte for byte, and must reject every vector with expectValid false. Bodies are UTF-8; an empty string means no body.",
+  "shared": {
+    "secret": "hks_00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff",
+    "hostId": "hst_3f9a0c1d2e4b5a6f",
+    "tenantRef": "comm_123",
+    "timestamp": 1762430400,
+    "nonce": "AAECAwQFBgcICQoLDA0ODw"
+  },
+  "vectors": [
+    {
+      "name": "get-with-query",
+      "expectValid": true,
+      "method": "GET",
+      "url": "https://host.example/jellycube/collections/events/items?limit=20&cursor=abc",
+      "body": "",
+      "siteRef": "site_9",
+      "stringToSign": "JC-SIG-v1\nGET\n/jellycube/collections/events/items\ncursor=abc&limit=20\nhst_3f9a0c1d2e4b5a6f\ncomm_123\nsite_9\n1762430400\nAAECAwQFBgcICQoLDA0ODw\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "v1=7947f2502d2dd9e64d5211fb52d790fa5bbc443b9e11a556496580a02d387846"
+    },
+    {
+      "name": "post-with-body",
+      "expectValid": true,
+      "method": "POST",
+      "url": "https://api.jellycube.test/api/sdk/v1/sites",
+      "body": "{\"label\":\"stmarys\",\"templateId\":\"tpl_1\"}",
+      "siteRef": "",
+      "stringToSign": "JC-SIG-v1\nPOST\n/api/sdk/v1/sites\n\nhst_3f9a0c1d2e4b5a6f\ncomm_123\n\n1762430400\nAAECAwQFBgcICQoLDA0ODw\nc9f3eef45dfedeb135a172d521a1939f8533d5e3619406e3c0a31512ffb87c44",
+      "signature": "v1=a5eec7d031f8dda9bd4bca3132ae2d47c4a771c244cf9cb2247842d2255f6ef2"
+    },
+    {
+      "name": "unicode-query",
+      "expectValid": true,
+      "method": "GET",
+      "url": "https://host.example/jellycube/collections?q=caf%C3%A9%20au%20lait&lang=fr",
+      "body": "",
+      "siteRef": "site_9",
+      "canonicalQuery": "lang=fr&q=caf%C3%A9%20au%20lait",
+      "signature": "v1=8830ef4d389373cc14231c143d08b98391859bd17bbd2c64361827d992bf5e12"
+    },
+    {
+      "name": "repeated-names",
+      "expectValid": true,
+      "method": "GET",
+      "url": "https://host.example/x?b=2&a=2&a=1",
+      "body": "",
+      "siteRef": "site_9",
+      "canonicalQuery": "a=1&a=2&b=2",
+      "signature": "v1=acb5e14d5953f13778b074f0d3491fb007abd17f2ccf97ee3677b1e7b483c62b"
+    },
+    {
+      "name": "empty-site-no-query",
+      "expectValid": true,
+      "method": "DELETE",
+      "url": "https://api.jellycube.test/api/sdk/v1/sites/run_abc",
+      "body": "",
+      "siteRef": "",
+      "signature": "v1=728ee4323d9bbc6273c014d83e904447f748367c0354ad800ab460c9d4149237"
+    },
+    {
+      "name": "tampered-query",
+      "expectValid": false,
+      "method": "GET",
+      "url": "https://host.example/jellycube/collections/events/items?limit=21&cursor=abc",
+      "body": "",
+      "siteRef": "site_9",
+      "signature": "v1=7947f2502d2dd9e64d5211fb52d790fa5bbc443b9e11a556496580a02d387846"
+    },
+    {
+      "name": "tampered-tenant",
+      "expectValid": false,
+      "method": "GET",
+      "url": "https://host.example/jellycube/collections/events/items?limit=20&cursor=abc",
+      "body": "",
+      "siteRef": "site_9",
+      "tenantRef": "comm_999",
+      "signature": "v1=7947f2502d2dd9e64d5211fb52d790fa5bbc443b9e11a556496580a02d387846"
+    },
+    {
+      "name": "tampered-method",
+      "expectValid": false,
+      "method": "POST",
+      "url": "https://host.example/jellycube/collections/events/items?limit=20&cursor=abc",
+      "body": "",
+      "siteRef": "site_9",
+      "signature": "v1=7947f2502d2dd9e64d5211fb52d790fa5bbc443b9e11a556496580a02d387846"
+    }
+  ]
+}

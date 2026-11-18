@@ -4,8 +4,8 @@
     "name": "Taf Technology"
   },
   "metadata": {
-    "description": "Agent Skills for building Jellycube-compatible Astro templates and sites.",
-    "version": "1.1.0"
+    "description": "Agent Skills for building Jellycube-compatible Astro templates and sites, and for integrating apps with Jellycube.",
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -14,6 +14,13 @@
       "source": "./",
       "strict": false,
       "skills": ["./template"]
+    },
+    {
+      "name": "integration",
+      "description": "Integrate an app with Jellycube (the Host SDK): host app setup, server handler and sign-in, embedded editor, sites, webhooks, host collections, freshness, islands, theme, previews and own domain, with troubleshooting and a host checker.",
+      "source": "./",
+      "strict": false,
+      "skills": ["./integration"]
     }
   ]
 }
